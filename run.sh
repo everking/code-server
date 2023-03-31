@@ -1,4 +1,14 @@
 # This assumes that you have /root as your main local working folder.
-docker run -it --name code-server \
+docker kill code-server
+docker rm code-server
+
+if [ -z "${CODE_PORT}" ]
+then
+  CODE_PORT=8086
+fi
+
+CONTAINER_ID=$(docker run -it --name code-server \
   -d -v /root:/root \
-  -p 8086:8086 -w /root code-server
+  -p ${CODE_PORT}:8080 -w /root code-server)
+
+docker logs -f ${CONTAINER_ID}
