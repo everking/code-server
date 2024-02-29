@@ -20,6 +20,15 @@ then
   export DEV_FOLDER="${HOME}"
 fi
 
+if [ -z "${HOST_USER}" ]
+then
+    HOST_USER="root"
+fi
+if [ -z "${HOST_PORT}" ]
+then
+    HOST_PORT="22"
+fi
+
 envsubst < bashrc-template > bashrc
 
 if [ -z "${CODE_SERVER_PASSWORD}" ]

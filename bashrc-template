@@ -1,12 +1,3 @@
-if [ -z "${HOST_USER}" ]
-then
-    HOST_USER="root"
-fi
-if [ -z "${HOST_PORT}" ]
-then
-    HOST_PORT="22"
-fi
-
 alias login-host="ssh -o StrictHostKeyChecking=accept-new ${HOST_USER}@host.docker.internal -p ${HOST_PORT}"
 if [ -z "${WIN_USER}" ]
 then
