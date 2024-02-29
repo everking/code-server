@@ -22,11 +22,11 @@ fi
 
 if [ -z "${HOST_USER}" ]
 then
-    HOST_USER="root"
+    export HOST_USER="root"
 fi
 if [ -z "${HOST_PORT}" ]
 then
-    HOST_PORT="22"
+    export HOST_PORT="22"
 fi
 
 envsubst < bashrc-template > bashrc
