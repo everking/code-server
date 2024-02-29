@@ -15,9 +15,12 @@ fi
 echo "CODE_PORT=${CODE_PORT}"
 
 if [ -z "${DEV_FOLDER}" ]
+then
   # Make your code reachable by code-server
   export DEV_FOLDER="${HOME}"
 fi
+
+envsubst < bashrc-template > bashrc
 
 docker run -it --name ${CONTAINER_NAME} \
   -d \
