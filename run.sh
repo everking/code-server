@@ -22,6 +22,13 @@ fi
 
 envsubst < bashrc-template > bashrc
 
+if [ -z "${CODE_SERVER_PASSWORD}" ]
+then
+  export CODE_SERVER_PASSWORD="insecure"
+fi
+
+envsubst < config.yaml-template > config.yaml
+
 docker run -it --name ${CONTAINER_NAME} \
   -d \
   -v ${DEV_FOLDER}:/app/dev \
