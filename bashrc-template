@@ -1,4 +1,4 @@
-alias login-host="ssh -o StrictHostKeyChecking=accept-new ${HOST_USER}@host.docker.internal -p ${HOST_PORT}"
+alias login-host="ssh -o StrictHostKeyChecking=accept-new ${HOST_USER}@${SSH_HOST} -p ${HOST_PORT}"
 if [ -z "${WIN_USER}" ]
 then
     echo "WIN_USER variable not set."

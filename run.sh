@@ -29,6 +29,11 @@ then
     export HOST_PORT="22"
 fi
 
+if [ -z "${SSH_HOST}" ]
+then
+  export SSH_HOST="host.docker.internal"
+fi
+
 envsubst < bashrc-template > bashrc
 
 if [ -z "${CODE_SERVER_PASSWORD}" ]
