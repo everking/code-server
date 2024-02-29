@@ -10,12 +10,18 @@ docker rm ${CONTAINER_NAME}
 
 if [ -z "${CODE_PORT}" ]
 then
-  CODE_PORT=8086
+  export CODE_PORT=8086
+fi
+echo "CODE_PORT=${CODE_PORT}"
+
+if [ -z "${DEV_FOLDER}" ]
+  # Make your code reachable by code-server
+  export DEV_FOLDER="${HOME}"
 fi
 
 docker run -it --name ${CONTAINER_NAME} \
   -d \
-  -v /mnt/f/dev:/app/dev \
+  -v ${DEV_FOLDER}:/app/dev \
   -v ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
   -v ${HOME}/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub \
   -v ${PWD}/config.yaml:/root/.config/code-server/config.yaml \
