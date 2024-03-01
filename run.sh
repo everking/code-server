@@ -34,23 +34,34 @@ then
   export SSH_HOST="host.docker.internal"
 fi
 
-envsubst < bashrc-template > bashrc
+if [ -z "${ID_RSA_PATH}" ]
+then
+  export ID_RSA_PATH="${HOME}/.ssh/id_rsa"
+fi
+
+export CODE_DATA_FOLDER="${HOME}/dev/${CONTAINER_NAME}-data"
+
+# Create data folder structure
+
+mkdir -p ${CODE_DATA_FOLDER}/share
+
+envsubst < bashrc-template > ${CODE_DATA_FOLDER}/bashrc
 
 if [ -z "${CODE_SERVER_PASSWORD}" ]
 then
   export CODE_SERVER_PASSWORD="insecure"
 fi
 
-envsubst < config.yaml-template > config.yaml
+envsubst < config.yaml-template > ${CODE_DATA_FOLDER}/config.yaml
 
 docker run -it --name ${CONTAINER_NAME} \
   -d \
   -v ${DEV_FOLDER}:/app/dev \
-  -v ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
-  -v ${HOME}/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub \
-  -v ${PWD}/config.yaml:/root/.config/code-server/config.yaml \
-  -v ${PWD}/share:/root/.local/share \
-  -v ${PWD}/bashrc:/root/.bashrc \
+  -v ${ID_RSA_PATH}:/root/.ssh/id_rsa \
+  -v ${ID_RSA_PATH}.pub:/root/.ssh/id_rsa.pub \
+  -v ${CODE_DATA_FOLDER}/config.yaml:/root/.config/code-server/config.yaml \
+  -v ${CODE_DATA_FOLDER}/share:/root/.local/share \
+  -v ${CODE_DATA_FOLDER}/bashrc:/root/.bashrc \
   -u root \
   -p ${CODE_PORT}:8080 -w /root ${IMAGE_ID}
 

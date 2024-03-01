@@ -41,6 +41,8 @@ ENTRYPOINT [ "code-server", "--host", "0.0.0.0" ]
 * `CODE_SERVER_PASSWORD`
     * Will be used to create `config.yaml` from [config.yaml-template](./config.yaml-template)
     * This is the password that will be used to access the portal.
+* `ID_RSA_PATH`
+    * Defaults to `${HOME}/.ssh/id_rsa`. Set this if you have SSH keys specific to the server.
 
 <img src="images/password-screenshot.png" width="600">
 
